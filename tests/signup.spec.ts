@@ -4,7 +4,8 @@ import {SignUpPage} from "../pageObjs/signup.page";
 test.describe("Sign up form tests", () => {
     let signupPage: SignUpPage;
     test.beforeEach(async ({page}) => {
-        await page.goto("/login");
+        signupPage = new SignUpPage(page);
+        await signupPage.goto();
     });
     test("should redirect to user details form after entering name and email and should be able to sign up successfully", async ({
         page,
