@@ -13,4 +13,9 @@ class HomePage {
             "//h2[text()='Full-Fledged practice website for Automation Engineers']"
         );
     }
+    async goto() {
+        await this.page.goto("/");
+    }
 }
+
+export {HomePage};
