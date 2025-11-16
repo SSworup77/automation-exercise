@@ -22,14 +22,28 @@ test.describe("Login tests", () => {
     });
     test("should login with valid credentials", async ({page}) => {
         loginPage = new LoginPage(page);
+        homePage = new HomePage(page);
         await loginPage.goto();
-        await loginPage.login("testuser746@gmail.com", "Test@1234");
+        await loginPage.login(process.env.EMAIL!, process.env.PASSWORD!);
         await expect(page.locator("//b['Test user']")).toBeVisible();
+        await expect(homePage.userStatus).toBeVisible();
+        await expect(page.locator("//a/b")).toHaveText(process.env.USER_NAME!);
     });
     test("should not login with invalid credentials", async ({page}) => {
         loginPage = new LoginPage(page);
         await loginPage.goto();
         await loginPage.login("testuser746@gmail.com", "WrongPassword");
         await expect(loginPage.loginErrorMessage).toBeVisible();
+    });
+    test("should log out sucessfully", async ({page}) => {
+        homePage = new HomePage(page);
+        loginPage = new LoginPage(page);
+        await loginPage.goto();
+        await loginPage.login(process.env.EMAIL!, process.env.PASSWORD!);
+        await expect(page.locator("//b['Test user']")).toBeVisible();
+        await expect(homePage.userStatus).toBeVisible();
+        await expect(page.locator("//a/b")).toHaveText(process.env.USER_NAME!);
+        await homePage.logoutBtn.click();
+        await expect(loginPage.loginHeader).toBeVisible();
     });
 });

@@ -6,6 +6,7 @@ class SignUpPage {
     readonly nameInput: Locator;
     readonly emailInput: Locator;
     readonly signupBtn: Locator;
+    readonly signupErrorMessage:Locator;
     readonly signupInfoHeader: Locator;
     readonly accountInfoHeader: Locator;
     readonly nameFieldAgain: Locator;
@@ -32,6 +33,7 @@ class SignUpPage {
         this.nameInput = page.locator("[data-qa='signup-name']");
         this.emailInput = page.locator("[data-qa='signup-email']");
         this.signupBtn = page.locator("[data-qa='signup-button']");
+        this.signupErrorMessage=page.locator("//p[text()='Email Address already exist!']")
         this.signupInfoHeader = page.locator("//b[text()='Enter Account Information']");
         this.accountInfoHeader = page.locator("//b[text()='Enter Account Information']");
         this.nameFieldAgain = page.locator("//input[@value='Test user']");

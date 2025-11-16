@@ -1,6 +1,8 @@
 import test, {expect} from "@playwright/test";
 import {SignUpPage} from "../pageObjs/signup.page";
+import dotenv from "dotenv";
 
+dotenv.config();
 test.describe("Sign up form tests", () => {
     let signupPage: SignUpPage;
     test.beforeEach(async ({page}) => {
@@ -66,4 +68,9 @@ test.describe("Sign up form tests", () => {
         await expect(accountCreatedHeader).toBeVisible();
     });
     //test("should register a new user successfully", async ({page}) => {});
+    test("should not register existing user",async({page})=>{
+        signupPage=new SignUpPage(page)
+        await signupPage.fillSignUpForm(process.env.USER_NAME!,process.env.EMAIL!)
+        await expect(signupPage.signupErrorMessage).toBeVisible();
+    })
 });
