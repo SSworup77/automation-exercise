@@ -20,3 +20,5 @@ class ContactPage {
         this.submitBtn = page.locator("[data-qa='submit-button']");
     }
 }
+
+export {ContactPage};
